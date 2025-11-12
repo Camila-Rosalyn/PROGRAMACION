@@ -4,12 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.InputMismatchException;
+import java.util.stream.Stream;
 
 public class QuispePradoCamilaMetodos {
 	
 	public static void main (String[]args) throws IOException{
-		boolean salir= false;
-			try {
+		boolean salir=false;
+			do {
+				try {
 				mostrarMenuPrincipal();
 			
 
@@ -18,6 +20,7 @@ public class QuispePradoCamilaMetodos {
 			}catch(InputMismatchException e){
 				System.out.println("Elige una opción: Seleccione una opción:");
 			}
+			}while(!salir);
 	}
 
 	
@@ -29,6 +32,14 @@ public class QuispePradoCamilaMetodos {
 		return num;
 	
 	}
+	public static String leerString(String mensaje) throws NumberFormatException, IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print(mensaje);
+		String palabra =leer.readLine();
+		return palabra;
+	
+	}
+	
 	public static void mostrarMenuPrincipal() throws NumberFormatException, IOException {
 		boolean salir= false;
 		do {
@@ -77,7 +88,11 @@ public class QuispePradoCamilaMetodos {
 	}
 	public static void mostrarMenuGestion1() throws NumberFormatException, IOException {
 		boolean menuprincipal= false;
+
+		
 		do {
+			try {
+		
 			System.out.println("--- GESTIÓN DE USUARIOS ---");
 			System.out.println("1. Crear nuevo usuario");
 			System.out.println("2. Calcular la edad del usuario nuevo");
@@ -86,7 +101,13 @@ public class QuispePradoCamilaMetodos {
 		
 			switch (opcion) {
 			case 1:
-			int user= leerInt("1. Crear nuevo usuario");
+				System.out.println("1. Crear nuevo usuario");
+				String nombre = leerString("Introduce tu nombre:");
+				int añoNacimiento = leerInt("Introduce tu año de nacimiento:");
+				String plataformaFav = leerString("Plataforma favorita (PC, PlayStation, Xbox, Nintendo): ");
+				String suscripción = leerString("¿Tiene suscripción premium? (S/N):");
+				
+						
 
 				break;
 			case 2:
@@ -94,15 +115,26 @@ public class QuispePradoCamilaMetodos {
 
 				break;
 			case 3:
+				mostrarMenuPrincipal();
 				menuprincipal=true;
-
 				break;
 			default:
 				System.out.println("Opción no válida");
 			
-		}	
-	
+		}
+		
+
+		} catch (NumberFormatException e) {
+			System.out.println("Entrada invalida. Introduce un numero.");
+		}catch(InputMismatchException e){
+			System.out.println("Elige una opción: Seleccione una opción:");
+		}
 		}while (!menuprincipal);
+		
+
+	}
+	public static void id(String nombre,int edad) throws NumberFormatException, IOException  {
+		
 		
 	}
 }
