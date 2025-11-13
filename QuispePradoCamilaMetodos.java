@@ -89,7 +89,6 @@ public class QuispePradoCamilaMetodos {
 	public static void mostrarMenuGestion1() throws NumberFormatException, IOException {
 		boolean menuprincipal= false;
 
-		
 		do {
 			try {
 		
@@ -133,8 +132,8 @@ public class QuispePradoCamilaMetodos {
 		
 
 	}
-	public static void id(String nombre,int edad) throws NumberFormatException, IOException  {
-		
+	public static void edad(int añoNacimiento ) throws NumberFormatException, IOException  {
+	 int edad= 2025-añoNacimiento;
 		
 	}
 }
