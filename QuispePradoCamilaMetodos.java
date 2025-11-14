@@ -104,9 +104,17 @@ public class QuispePradoCamilaMetodos {
 				String nombre = leerString("Introduce tu nombre:");
 				int añoNacimiento = leerInt("Introduce tu año de nacimiento:");
 				String plataformaFav = leerString("Plataforma favorita (PC, PlayStation, Xbox, Nintendo): ");
-				String suscripción = leerString("¿Tiene suscripción premium? (S/N):");
+				String suscripcion = leerString("¿Tiene suscripción premium? (S/N):");
 				
-						
+				int edad = calcularEdad(añoNacimiento);
+			    String idUsuario = generarID(nombre, añoNacimiento);
+			 
+			    
+			    System.out.println("ID Usuario: " + idUsuario);
+			    System.out.println("Edad: " + edad + " años");
+			    System.out.println("Tipo de usuario: "+tipoUsuario(edad));
+			    System.out.println("Plataforma favorita: " + plataformaFav);
+			    System.out.println("Premium: " + premium(suscripcion));
 
 				break;
 			case 2:
@@ -124,16 +132,59 @@ public class QuispePradoCamilaMetodos {
 		
 
 		} catch (NumberFormatException e) {
-			System.out.println("Entrada invalida. Introduce un numero.");
-		}catch(InputMismatchException e){
-			System.out.println("Elige una opción: Seleccione una opción:");
+				System.out.println("Entrada invalida. Introduce un numero.");
 		}
 		}while (!menuprincipal);
 		
 
 	}
-	public static void edad(int añoNacimiento ) throws NumberFormatException, IOException  {
-	 int edad= 2025-añoNacimiento;
+	public static int calcularEdad(int añoNacimiento ) throws NumberFormatException, IOException  {
+	 int añoActual=2025;
+		return añoActual-añoNacimiento;
+	}
+	public static String generarID(String nombre, int añoNacimiento) {
+		String primeras3 = nombre.trim().toUpperCase();
+		if(primeras3.length()>=3) {
+			primeras3= primeras3.substring(0, 3);
+		}else {
+			while(primeras3.length()<3){
+				primeras3+="x";	
+			}
+		}
+		String idUsuario=primeras3+"GAME"+añoNacimiento;
+		return idUsuario;
+	}
+	public static String tipoUsuario(int edad) {
+		if(edad>=17) {
+			return "Junior Gamer";
+		}if(edad<=18 && edad>=30) {
+			return "Pro Gamer";
+		}else {
+			return "Master Gamer";
+			
+		}	
+	}
+	public static String pedirPlataforma(String plataformaFav) {
+		boolean valida= false;
+		do(valida){
+			try {
+				if(plataformaFav.equalsIgnoreCase("PC") ||
+		                 plataformaFav.equalsIgnoreCase("PlayStation") ||
+		                 plataformaFav.equalsIgnoreCase("Play STATION") || // por si alguien escribe con espacio
+		                 plataforma.equalsIgnoreCase("Playstation") ||
+		                 plataforma.equalsIgnoreCase("XBOX") ||
+		                 plataforma.equalsIgnoreCase("Nintendo")) 
+			}catch(Exeception e) {
+				 System.out.println("Error al leer la plataforma. Intenta de nuevo.");
+			}
+		}
+	}
+	public static String premium(String suscripcion) {
 		
+		if(suscripcion.equals('S') || suscripcion.equals('N')){
+			return "Si";
+		}else {
+			return "No";
+		}while(!valida)
 	}
 }
