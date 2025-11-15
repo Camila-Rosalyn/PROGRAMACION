@@ -104,6 +104,7 @@ public class QuispePradoCamilaMetodos {
 				String nombre = leerString("Introduce tu nombre:");
 				int añoNacimiento = leerInt("Introduce tu año de nacimiento:");
 				String plataformaFav = leerString("Plataforma favorita (PC, PlayStation, Xbox, Nintendo): ");
+				perdirplataforma(plataformafav);
 				String suscripcion = leerString("¿Tiene suscripción premium? (S/N):");
 				
 				int edad = calcularEdad(añoNacimiento);
@@ -119,7 +120,9 @@ public class QuispePradoCamilaMetodos {
 				break;
 			case 2:
 				System.out.println("2. Calcular la edad del usuario nuevo");
-
+				añoNacimiento=leerInt("Introduce tu año de nacimiento");
+				System.out.println("Edad: " + edad + " años");
+				System.out.println("Puede jugar a juegos con etiqueta: ");
 				break;
 			case 3:
 				mostrarMenuPrincipal();
@@ -139,8 +142,19 @@ public class QuispePradoCamilaMetodos {
 
 	}
 	public static int calcularEdad(int añoNacimiento ) throws NumberFormatException, IOException  {
-	 int añoActual=2025;
-		return añoActual-añoNacimiento;
+	 boolean edadCorrecta= false;
+		do(edadCorrecta!){
+			try {
+				if(1920<=añoNacimiento && añoNacimiento>=2025) {
+					 int añoActual=2025;
+						return añoActual-añoNacimiento;
+				}catch(Exeception e) {
+					System.out.println("No esta dentro del rango de edad");
+				}
+				
+			}
+		}while(!edadCorrecta);
+		
 	}
 	public static String generarID(String nombre, int añoNacimiento) {
 		String primeras3 = nombre.trim().toUpperCase();
@@ -166,25 +180,33 @@ public class QuispePradoCamilaMetodos {
 	}
 	public static String pedirPlataforma(String plataformaFav) {
 		boolean valida= false;
-		do(valida){
-			try {
-				if(plataformaFav.equalsIgnoreCase("PC") ||
-		                 plataformaFav.equalsIgnoreCase("PlayStation") ||
-		                 plataformaFav.equalsIgnoreCase("Play STATION") || // por si alguien escribe con espacio
-		                 plataforma.equalsIgnoreCase("Playstation") ||
-		                 plataforma.equalsIgnoreCase("XBOX") ||
-		                 plataforma.equalsIgnoreCase("Nintendo")) 
-			}catch(Exeception e) {
-				 System.out.println("Error al leer la plataforma. Intenta de nuevo.");
+		do {
+			
+				if(plataformaFav.equalsIgnoreCase("PC") || 
+						plataformaFav.equalsIgnoreCase("PlayStation") ||
+		                 plataformaFav.equalsIgnoreCase("Play STATION") ||
+		                 plataformaFav.equalsIgnoreCase("Playstation") ||
+		                 plataformaFav.equalsIgnoreCase("XBOX") ||
+		                 plataformaFav.equalsIgnoreCase("Nintendo")) {
+					
+					valida=true;
+					} else {
+				 System.out.println("Error. Ingresa una de estas plataformas: PC, PlayStation, Xbox, Nintendo");
 			}
+		}while (!valida);
+			
+			return plataformaFav;
 		}
-	}
+		
 	public static String premium(String suscripcion) {
 		
-		if(suscripcion.equals('S') || suscripcion.equals('N')){
+		if(suscripcion.equalsIgnoreCase('S')){
 			return "Si";
-		}else {
+		}else if(suscripcion.equalsIgnoreCase('N')) {
 			return "No";
-		}while(!valida)
+		}else {
+			 System.out.println("Error. Ingresa S o N.");
+		        return "";
+		}
 	}
 }
