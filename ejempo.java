@@ -1,7 +1,33 @@
 package QuispePradoCamilaMetodos;
 
-public class ejempo {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
+public class ejempo {
+	public static int leerInt(String mensaje) throws NumberFormatException, IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print(mensaje);
+		int num = Integer.parseInt(leer.readLine());
+		return num;
+	
+	}
+	public static String leerString(String mensaje) throws NumberFormatException, IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print(mensaje);
+		String palabra =leer.readLine();
+		return palabra;
+	
+	}
+	public static double leerDouble(String mensaje) throws NumberFormatException, IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print(mensaje);
+		Double num = Double.parseDouble(leer.readLine());
+		return num;
+	
+	}
+}
+	
 	if (edad>=15 && edad <=18) {
 		System.out.println("¿Los padres han autorizado la salida? (S/N): ");
 		char autorizacion= leer.readLine().charAt(0);

@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.InputMismatchException;
-import java.util.stream.Stream;
-
 public class QuispePradoCamilaMetodos {
 	
 	public static void main (String[]args) throws IOException{
@@ -43,7 +41,7 @@ public class QuispePradoCamilaMetodos {
 	public static void mostrarMenuPrincipal() throws NumberFormatException, IOException {
 		boolean salir= false;
 		do {
-			// MOSTRAR MENU
+
 			System.out.println("\n--- BIBLIOTECA Calasanz Games ---");
 
 			System.out.println("1. Gestión de Usuarios");
@@ -57,12 +55,14 @@ public class QuispePradoCamilaMetodos {
 			
 			switch (opcion) {
 			case 1:
+				
 			mostrarMenuGestion1();
 
 				break;
 			case 2:
-				System.out.println("2. Catálogo de Juegos");
-
+				
+			mostrarMenuCatalogo2();
+			
 				break;
 			case 3:
 				System.out.println("3. Sistemas de Valoraciones");
@@ -95,16 +95,17 @@ public class QuispePradoCamilaMetodos {
 			System.out.println("--- GESTIÓN DE USUARIOS ---");
 			System.out.println("1. Crear nuevo usuario");
 			System.out.println("2. Calcular la edad del usuario nuevo");
+			
 			System.out.println("3.Volver al menu principal");
 			int opcion = leerInt("Elige una opción: ");
-		
+			
 			switch (opcion) {
 			case 1:
 				System.out.println("1. Crear nuevo usuario");
 				String nombre = leerString("Introduce tu nombre:");
 				int añoNacimiento = leerInt("Introduce tu año de nacimiento:");
 				String plataformaFav = leerString("Plataforma favorita (PC, PlayStation, Xbox, Nintendo): ");
-				perdirplataforma(plataformafav);
+				pedirPlataforma(plataformaFav);
 				String suscripcion = leerString("¿Tiene suscripción premium? (S/N):");
 				
 				int edad = calcularEdad(añoNacimiento);
@@ -119,10 +120,12 @@ public class QuispePradoCamilaMetodos {
 
 				break;
 			case 2:
+
 				System.out.println("2. Calcular la edad del usuario nuevo");
-				añoNacimiento=leerInt("Introduce tu año de nacimiento");
-				System.out.println("Edad: " + edad + " años");
-				System.out.println("Puede jugar a juegos con etiqueta: ");
+				añoNacimiento=leerInt("Introduce tu año de nacimiento: ");
+				int edad2 = calcularEdad(añoNacimiento);
+				System.out.println("Edad: " + calcularEdad(añoNacimiento)+ " años");
+				System.out.println("Puede jugar a juegos con etiqueta: " + etiquetaJuegos(edad2));
 				break;
 			case 3:
 				mostrarMenuPrincipal();
@@ -141,20 +144,19 @@ public class QuispePradoCamilaMetodos {
 		
 
 	}
-	public static int calcularEdad(int añoNacimiento ) throws NumberFormatException, IOException  {
-	 boolean edadCorrecta= false;
-		do(edadCorrecta!){
-			try {
-				if(1920<=añoNacimiento && añoNacimiento>=2025) {
-					 int añoActual=2025;
-						return añoActual-añoNacimiento;
-				}catch(Exeception e) {
-					System.out.println("No esta dentro del rango de edad");
-				}
-				
-			}
-		}while(!edadCorrecta);
+
+	public static int calcularEdad(int añoNacimiento ) throws NumberFormatException, IOException{
+
+		    while (añoNacimiento < 1920 || añoNacimiento > 2025) {
+		        System.out.println("Año fuera de rango (1920-2025). Intenta de nuevo.");
+		        añoNacimiento = leerInt("Introduce un año válido: ");
+		    }
+
+		    int añoActual = 2025;
+		    int edad= añoActual - añoNacimiento;
+		    return edad;
 		
+
 	}
 	public static String generarID(String nombre, int añoNacimiento) {
 		String primeras3 = nombre.trim().toUpperCase();
@@ -171,14 +173,14 @@ public class QuispePradoCamilaMetodos {
 	public static String tipoUsuario(int edad) {
 		if(edad>=17) {
 			return "Junior Gamer";
-		}if(edad<=18 && edad>=30) {
+		}if(edad<=30) {
 			return "Pro Gamer";
 		}else {
 			return "Master Gamer";
 			
 		}	
 	}
-	public static String pedirPlataforma(String plataformaFav) {
+	public static String pedirPlataforma(String plataformaFav)  throws IOException{
 		boolean valida= false;
 		do {
 			
@@ -200,13 +202,71 @@ public class QuispePradoCamilaMetodos {
 		
 	public static String premium(String suscripcion) {
 		
-		if(suscripcion.equalsIgnoreCase('S')){
+		if(suscripcion.equalsIgnoreCase("S")){
 			return "Si";
-		}else if(suscripcion.equalsIgnoreCase('N')) {
+		}
+		else if(suscripcion.equalsIgnoreCase("N")) {
 			return "No";
 		}else {
 			 System.out.println("Error. Ingresa S o N.");
 		        return "";
+		        
 		}
+	}
+	public static String etiquetaJuegos(int edad) {
+		
+		if(edad>=18) {
+			return "PEGI 18";
+		}if(edad>=16) {
+			return "PEGI 16";
+		}if(edad>=12) {
+			return "PEGI 12";
+			
+		}if(edad>=7) {
+			return "PEGI 7";
+		} else{
+			return "PEGI 3";
+		}
+
+	}
+	public static void mostrarMenuCatalogo2() throws NumberFormatException, IOException {
+		boolean menuprincipal= false;
+
+		do {
+			try {
+		
+			System.out.println("--- CATÁLOGO DE JUEGOS ---");
+			System.out.println("1. Añadir juegos a la biblioteca");
+			System.out.println("2. Calcular espacio total ocupado");
+			System.out.println("3.Volver al menu principal");
+			int opcion = leerInt("Elige una opción: ");
+			
+			switch (opcion) {
+			case 1:
+				System.out.println("1. Añadir juegos a la biblioteca");
+				int juegosAñadir=leerInt("¿Cuántos juegos quieres añadir?");
+				
+				break;
+			case 2:
+				System.out.println("2. Calcular espacio total ocupado");
+
+	
+				break;
+			case 3:
+				mostrarMenuPrincipal();
+				menuprincipal=true;
+				break;
+			default:
+				System.out.println("Opción no válida");
+			
+		}
+		
+
+		} catch (NumberFormatException e) {
+				System.out.println("Entrada invalida. Introduce un numero.");
+		}
+		}while (!menuprincipal);
+		
+
 	}
 }
