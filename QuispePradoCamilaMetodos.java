@@ -69,8 +69,8 @@ public class QuispePradoCamilaMetodos {
 
 				break;
 			case 4:
-				System.out.println("4. Estadisticas y Reportes");
 
+			mostrarMenuEstadisticas4();
 				break;
 			case 5:
 				System.out.println("5. Calculadora de Descuentos");
@@ -244,7 +244,9 @@ public class QuispePradoCamilaMetodos {
 			switch (opcion) {
 			case 1:
 				System.out.println("1. Añadir juegos a la biblioteca");
-				int juegosAñadir=leerInt("¿Cuántos juegos quieres añadir?");
+				int juegosAñadir=leerInt("¿Cuántos juegos quieres añadir?: ");
+				int i= juegosAñadir;
+				for(i=0, )
 				
 				break;
 			case 2:
@@ -269,4 +271,46 @@ public class QuispePradoCamilaMetodos {
 		
 
 	}
+
+	public static void mostrarMenuEstadisticas4() throws NumberFormatException, IOException {
+		boolean menuprincipal= false;
+
+		do {
+			try {
+		
+			System.out.println("--- ESTADÍSTICAS Y RESPORTES ---");
+			System.out.println("1. Contador de juegos completados");
+			System.out.println("2. Calcular horas totales del juego");
+			System.out.println("3.Volver al menu principal");
+			int opcion = leerInt("Elige una opción: ");
+			
+			switch (opcion) {
+			case 1:
+				System.out.println("1. Contador de juegos completados");
+				int juegosCompletados=leerInt("¿Cuál el numero de juegos completados este año?: ");
+				
+				break;
+			case 2:
+				System.out.println("2. Calcular espacio total ocupado");
+
+	
+				break;
+			case 3:
+				mostrarMenuPrincipal();
+				menuprincipal=true;
+				break;
+			default:
+				System.out.println("Opción no válida");
+			
+		}
+		
+
+		} catch (NumberFormatException e) {
+				System.out.println("Entrada invalida. Introduce un numero.");
+		}
+		}while (!menuprincipal);
+		
+
+	}
+	
 }
