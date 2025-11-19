@@ -26,6 +26,7 @@ public class ejempo {
 		return num;
 	
 	}
+}
 
 	
 	if (edad>=15 && edad <=18) {
@@ -44,7 +45,7 @@ public class ejempo {
 	        System.out.println("Entrada inválida. Debe ser S o N.");
 	        return pedirPremium(); // vuelve a pedir (recursivo pero válido)
 	    }
-
+	 }
 	 public static void opcionAñadirJuegos() throws IOException {
 
 		    int cantidad = leerInt("¿Cuántos juegos quieres añadir?: ");
@@ -88,6 +89,7 @@ public class ejempo {
 		    System.out.println("Total de juegos: " + totalJuegos);
 		    System.out.println("Total gastado: " + totalPrecio + "€");
 		}
+	 }
 
 	// Pide y valida la plataforma favorita (con try-catch y bucle)
 	 public static String pedirPlataforma() {
@@ -170,44 +172,55 @@ public static void opcionEspacioTotal() throws IOException {
     System.out.println("Espacio total ocupado: " + espacioTotal + " GB");
 }
 }
+//Añádelo en tu clase (usa tus métodos leerString / leerInt)
 public static void sistemaValoraciones() throws IOException {
+ System.out.println("\n--- SISTEMA DE VALORACIONES ---");
+ String nombreJuego = leerString("Nombre del juego a valorar: ");
+ int numUsuarios = leerInt("¿Cuántos usuarios han valorado el juego " + nombreJuego + " ?: ");
 
-    boolean notaValida = false;
-    int nota = 0;
+ double suma = 0.0;
+ for (int i = 1; i <= numUsuarios; i++) {
+     double valor = -1;
+     boolean valida = false;
 
-    while (!notaValida) {
-        try {
-            nota = leerInt("Valora el juego del 1 al 5: ");
-            
-            if (nota >= 1 && nota <= 5) {
-                notaValida = true;
-            } else {
-                System.out.println("Error. La valoración debe ser entre 1 y 5.");
-            }
+     while (!valida) {
+         try {
+             String entrada = leerString("Valoración del usuario " + i + " (0-10): ");
+             valor = Double.parseDouble(entrada);
 
-        } catch (NumberFormatException e) {
-            System.out.println("Error. Introduce un número válido.");
-        }
-    }
+             if (valor < 0 || valor > 10) {
+                 System.out.println("Nota inválida. Debe estar entre 0 y 10.");
+             } else {
+                 valida = true; // valor correcto
+             }
 
-    System.out.println("Resultado: " + valorarJuego(nota));
+         } catch (NumberFormatException e) {
+             System.out.println("Entrada inválida. Introduce un número.");
+         }
+     }
+
+     suma += valor;
+ }
+
+ double media = (numUsuarios > 0) ? (suma / numUsuarios) : 0.0;
+ System.out.println("Nota media: " + media);
+ System.out.println("Resumen: " + resumenValoracion(media));
 }
-public static String valorarJuego(int nota) {
 
-    switch (nota) {
-        case 5:
-            return "Excelente juego ⭐⭐⭐⭐⭐";
-        case 4:
-            return "Muy buen juego ⭐⭐⭐⭐";
-        case 3:
-            return "Juego bueno ⭐⭐⭐";
-        case 2:
-            return "Mejorable ⭐⭐";
-        case 1:
-            return "Malo ⭐";
-        default:
-            return "Valoración inválida";
-    }
+//Método auxiliar que devuelve el texto según la nota media
+public static String resumenValoracion(double nota) {
+ if (nota >= 9.5 && nota <= 10.0) {
+     return "Obra Maestra";
+ } else if (nota >= 8.5) { // 8.5 - 9.4...
+     return "Excelente";
+ } else if (nota >= 7.0) { // 7.0 - 8.4
+     return "Bueno";
+ } else if (nota >= 5.0) { // 5.0 - 6.9
+     return "Aceptable";
+ } else { // 0.0 - 4.9
+     return "Decepcionante";
+ }
 }
+
 
 }

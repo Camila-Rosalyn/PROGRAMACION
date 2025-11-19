@@ -82,7 +82,7 @@ public class QuispePradoCamilaMetodos {
 			case 5:
 				System.out.println("5. Calculadora de Descuentos");
 				double precioJuego = leerDouble("Introduce el preio del juego: ");
-				double porcentajeDescuento = leerDouble("I ntroduce el porsentaje de descuento: ");
+				double porcentajeDescuento = leerDouble("Introduce el porsentaje de descuento: ");
 				calculadoraDescuentos();
 				break;
 			case 6:
@@ -332,8 +332,51 @@ public class QuispePradoCamilaMetodos {
 	}
 	public static void sistemaValoraciones() throws IOException {
 		
-	}
+		
+		 String nombreJuego = leerString("Nombre del juego a valorar: ");
+		 int numUsuarios = leerInt("¿Cuántos usuarios han valorado el juego " + nombreJuego + " ?: ");
 
+		 double suma = 0.0;
+		 for (int i = 1; i <= numUsuarios; i++) {
+		     double valor = -1;
+		     boolean valida = false;
+
+		     while (!valida) {
+		         try {
+		             String entrada = leerString("Valoración del usuario " + i + " (0-10): ");
+		             valor = Double.parseDouble(entrada);
+
+		             if (valor < 0 || valor > 10) {
+		                 System.out.println("Nota inválida. Debe estar entre 0 y 10.");
+		             } else {
+		                 valida = true;
+		             }
+
+		         } catch (NumberFormatException e) {
+		             System.out.println("Entrada inválida. Introduce un número.");
+		         }
+		     }
+
+		     suma += valor;
+		 }
+
+		 double media = (numUsuarios > 0) ? (suma / numUsuarios) : 0.0;
+		 System.out.println("Nota media: " + media);
+		 System.out.println("Resumen: " + resumenValoracion(media));
+		}
+	public static String resumenValoracion(double nota) {
+		 if (nota >= 9.5 && nota <= 10.0) {
+		     return "Obra Maestra";
+		 } else if (nota >= 8.5) {
+		     return "Excelente";
+		 } else if (nota >= 7.0) {
+		     return "Bueno";
+		 } else if (nota >= 5.0) { 
+		     return "Aceptable";
+		 } else { 
+		     return "Decepcionante";
+		 }
+		}
 	public static void mostrarMenuEstadisticas4() throws NumberFormatException, IOException {
 		boolean menuprincipal= false;
 
@@ -368,7 +411,7 @@ public class QuispePradoCamilaMetodos {
 		
 
 		} catch (NumberFormatException e) {
-				System.out.println("Entrada invalida. Introduce un numero.");
+				System.out.println("Error. Introduce un numero.");
 		}
 		}while (!menuprincipal);
 		
