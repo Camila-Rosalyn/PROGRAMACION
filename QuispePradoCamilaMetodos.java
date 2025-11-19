@@ -37,6 +37,13 @@ public class QuispePradoCamilaMetodos {
 		return palabra;
 	
 	}
+	public static double leerDouble(String mensaje) throws NumberFormatException, IOException {
+		BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
+		System.out.print(mensaje);
+		Double num = Double.parseDouble(leer.readLine());
+		return num;
+	
+	}
 	
 	public static void mostrarMenuPrincipal() throws NumberFormatException, IOException {
 		boolean salir= false;
@@ -66,7 +73,7 @@ public class QuispePradoCamilaMetodos {
 				break;
 			case 3:
 				System.out.println("3. Sistemas de Valoraciones");
-
+			sistemaValoraciones();
 				break;
 			case 4:
 
@@ -74,7 +81,9 @@ public class QuispePradoCamilaMetodos {
 				break;
 			case 5:
 				System.out.println("5. Calculadora de Descuentos");
-
+				double precioJuego = leerDouble("Introduce el preio del juego: ");
+				double porcentajeDescuento = leerDouble("I ntroduce el porsentaje de descuento: ");
+				calculadoraDescuentos();
 				break;
 			case 6:
 				salir = true;
@@ -244,14 +253,12 @@ public class QuispePradoCamilaMetodos {
 			switch (opcion) {
 			case 1:
 				System.out.println("1. Añadir juegos a la biblioteca");
-				int juegosAñadir=leerInt("¿Cuántos juegos quieres añadir?: ");
-				int i= juegosAñadir;
-				for(i=0, )
+				añadirJuegos();
 				
 				break;
 			case 2:
 				System.out.println("2. Calcular espacio total ocupado");
-
+				calcularEspacioOcupado();
 	
 				break;
 			case 3:
@@ -270,6 +277,61 @@ public class QuispePradoCamilaMetodos {
 		}while (!menuprincipal);
 		
 
+	}
+	public static void añadirJuegos() throws NumberFormatException, IOException {
+	
+		int juegosAñadir=leerInt("¿Cuántos juegos quieres añadir?: ");
+		double totalPrecio=0;
+		int totalJuegos=0;
+		
+		for (int i=1; i<= juegosAñadir; i++) {
+			String nombre = leerString("Nombre del juego: ");
+			double tamaño=0;
+			boolean tamañoValido = false;
+			while(!tamañoValido) {
+				try {
+					tamaño = leerDouble("Tamaño en GB de " + nombre + " : ");
+					tamañoValido = true;
+				}catch(NumberFormatException e) {
+					System.out.println("Error. Introduce un número. ");
+				}
+			}
+			double precio = 0;
+			boolean precioValido = false;
+			
+			  while (!precioValido) {
+		            try {
+		                precio = leerDouble("Precio de " + nombre + ": ");
+		                precioValido = true;
+		            } catch (NumberFormatException e) {
+		                System.out.println("Error. Introduce un número.");
+		            }
+		        }
+			  totalJuegos++;
+			  totalPrecio+= precio;
+		}
+
+	    System.out.println("Total de juegos: " + totalJuegos);
+	    System.out.println("Total gastado: " + totalPrecio + "€");
+		
+	}
+	public static void calcularEspacioOcupado() throws NumberFormatException, IOException {
+		double memoriaTotal = leerDouble("Memoria disponible en GB: ");
+		int cantidadJuego= leerInt("¿Cuántos juegos vas a instalar?: ");
+		double espacioTotal=0;
+		for(int i = 1; i<= cantidadJuego; i++) {
+			double tamaño = leerDouble("Tamaño del juego"+ i + " en GB: ");
+			espacioTotal += tamaño;
+			if(espacioTotal> memoriaTotal) {
+				System.out.println("¡Memoria superada! No puedes instalar más juegos. ");
+				System.out.println("Espacio total ocupado: "+ (espacioTotal- tamaño) + " GB");
+				return;
+			}
+		}
+		System.out.println("Espacio total ocupado: "+ espacioTotal + " GB");
+	}
+	public static void sistemaValoraciones() throws IOException {
+		
 	}
 
 	public static void mostrarMenuEstadisticas4() throws NumberFormatException, IOException {
@@ -312,5 +374,8 @@ public class QuispePradoCamilaMetodos {
 		
 
 	}
-	
+	public static void calculadoraDescuentos() throws NumberFormatException, IOException {
+		
+	}
+
 }

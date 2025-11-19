@@ -26,7 +26,7 @@ public class ejempo {
 		return num;
 	
 	}
-}
+
 	
 	if (edad>=15 && edad <=18) {
 		System.out.println("¿Los padres han autorizado la salida? (S/N): ");
@@ -44,6 +44,51 @@ public class ejempo {
 	        System.out.println("Entrada inválida. Debe ser S o N.");
 	        return pedirPremium(); // vuelve a pedir (recursivo pero válido)
 	    }
+
+	 public static void opcionAñadirJuegos() throws IOException {
+
+		    int cantidad = leerInt("¿Cuántos juegos quieres añadir?: ");
+		    
+		    double totalPrecio = 0;
+		    int totalJuegos = 0;
+
+		    for (int i = 1; i <= cantidad; i++) {
+
+		        String nombre = leerString("Nombre del juego: ");
+
+		        double tamaño = 0;
+		        boolean tamañoValido = false;
+
+		        while (!tamañoValido) {
+		            try {
+		                tamaño = Double.parseDoubleleerString("Tamaño en GB de " + nombre + ": "));
+		                tamañoValido = true;
+		            } catch (NumberFormatException e) {
+		                System.out.println("Entrada inválida. Introduce un número.");
+		            }
+		        }
+
+		        double precio = 0;
+		        boolean precioValido = false;
+
+		        while (!precioValido) {
+		            try {
+		                precio = Double.parseDouble(leerString("Precio de " + nombre + ": "));
+		                precioValido = true;
+		            } catch (NumberFormatException e) {
+		                System.out.println("Entrada inválida. Introduce un número.");
+		            }
+		        }
+
+		        totalJuegos++;
+		        totalPrecio += precio;
+
+		    }
+
+		    System.out.println("Total de juegos: " + totalJuegos);
+		    System.out.println("Total gastado: " + totalPrecio + "€");
+		}
+
 	// Pide y valida la plataforma favorita (con try-catch y bucle)
 	 public static String pedirPlataforma() {
 	     String plataforma = "";
@@ -99,5 +144,70 @@ public class ejempo {
 	         }
 	     }
 	 }
+
+}
+}
+}
+public static void opcionEspacioTotal() throws IOException {
+
+    double memoriaTotal = Double.parseDouble(leerString("Memoria disponible en GB: "));
+    int cantidad = leerInt("¿Cuántos juegos vas a instalar?: ");
+
+    double espacioTotal = 0;
+
+    for (int i = 1; i <= cantidad; i++) {
+        double tamaño = Double.parseDouble(leerString("Tamaño del juego " + i + " en GB: "));
+
+        espacioTotal += tamaño;
+
+        if (espacioTotal > memoriaTotal) {
+            System.out.println("¡Memoria superada! No puedes instalar más juegos.");
+            System.out.println("Espacio total ocupado: " + (espacioTotal - tamaño) + " GB");
+            return;
+        }
+    }
+
+    System.out.println("Espacio total ocupado: " + espacioTotal + " GB");
+}
+}
+public static void sistemaValoraciones() throws IOException {
+
+    boolean notaValida = false;
+    int nota = 0;
+
+    while (!notaValida) {
+        try {
+            nota = leerInt("Valora el juego del 1 al 5: ");
+            
+            if (nota >= 1 && nota <= 5) {
+                notaValida = true;
+            } else {
+                System.out.println("Error. La valoración debe ser entre 1 y 5.");
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Error. Introduce un número válido.");
+        }
+    }
+
+    System.out.println("Resultado: " + valorarJuego(nota));
+}
+public static String valorarJuego(int nota) {
+
+    switch (nota) {
+        case 5:
+            return "Excelente juego ⭐⭐⭐⭐⭐";
+        case 4:
+            return "Muy buen juego ⭐⭐⭐⭐";
+        case 3:
+            return "Juego bueno ⭐⭐⭐";
+        case 2:
+            return "Mejorable ⭐⭐";
+        case 1:
+            return "Malo ⭐";
+        default:
+            return "Valoración inválida";
+    }
+}
 
 }
