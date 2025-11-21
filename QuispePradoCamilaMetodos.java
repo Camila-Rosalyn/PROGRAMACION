@@ -80,9 +80,6 @@ public class QuispePradoCamilaMetodos {
 			mostrarMenuEstadisticas4();
 				break;
 			case 5:
-				System.out.println("5. Calculadora de Descuentos");
-				double precioJuego = leerDouble("Introduce el preio del juego: ");
-				double porcentajeDescuento = leerDouble("Introduce el porsentaje de descuento: ");
 				calculadoraDescuentos();
 				break;
 			case 6:
@@ -392,12 +389,11 @@ public class QuispePradoCamilaMetodos {
 			switch (opcion) {
 			case 1:
 				System.out.println("1. Contador de juegos completados");
-				int juegosCompletados=leerInt("¿Cuál el numero de juegos completados este año?: ");
-				
+				contadorDeJuegos();
 				break;
 			case 2:
-				System.out.println("2. Calcular espacio total ocupado");
-
+				System.out.println("2. Calcular horas totales del juego");
+				calcularHorasTotalesJuego();
 	
 				break;
 			case 3:
@@ -417,8 +413,133 @@ public class QuispePradoCamilaMetodos {
 		
 
 	}
-	public static void calculadoraDescuentos() throws NumberFormatException, IOException {
-		
-	}
+	public static void contadorDeJuegos() throws NumberFormatException, IOException {
+
+    int juegosCompletados = leerInt("¿Cuántos juegos completaste este año? (0-500): ");
+
+    while (juegosCompletados < 0 || juegosCompletados > 500) {
+        System.out.println("Número inválido. Introduce un valor entre 0 y 500.");
+        juegos = leerInt("¿Cuántos juegos completaste este año?: ");
+    }
+
+    contarRecursivo(juegosCompletados);
+}
+	public static void contarRecursivo(int n) {
+    if (n == 0) {
+        return;
+    }
+
+    System.out.println("Has completado el juego número: " + n);
+    contarRecursivo(n - 1);
+}
+public static void calcularHorasTotalesJuego() throws NumberFormatException, IOException {
+
+    String opcion = leerString("¿Quieres introducir solo horas (H) o horas y minutos (HM)?: ");
+
+    while (!opcion.equalsIgnoreCase("H") && !opcion.equalsIgnoreCase("HM")) {
+        System.out.println("Opción inválida. Escribe H o HM.");
+        opcion = leerString("¿Quieres introducir solo horas (H) o horas y minutos (HM)?: ");
+    }
+
+    if (opcion.equalsIgnoreCase("H")) {
+
+        int horas = -1;
+        while (horas < 0) {
+            try {
+                horas = leerInt("Horas: ");
+                if (horas < 0) {
+                    System.out.println("Las horas no pueden ser negativas.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error. Introduce un número válido.");
+            }
+        }
+
+        double total = calcularHorasTotales(horas);
+        System.out.println("Total de horas jugadas: " + total);
+
+    } else {
+
+        int horas = -1;
+        while (horas < 0) {
+            try {
+                horas = leerInt("Horas: ");
+                if (horas < 0) {
+                    System.out.println("Las horas no pueden ser negativas.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error. Introduce un número válido.");
+            }
+        }
+
+        int minutos = -1;
+        while (minutos < 0 || minutos > 59) {
+            try {
+                minutos = leerInt("Minutos: ");
+                if (minutos < 0 || minutos > 59) {
+                    System.out.println("Los minutos deben estar entre 0 y 59.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error. Introduce un número válido.");
+            }
+        }
+
+        double total = calcularHorasTotales(horas, minutos);
+        System.out.println("Total de horas jugadas: " + total);
+    }
+}
+public static double calcularHorasTotales(int horas) {
+    return horas;
+}
+
+public static double calcularHorasTotales(int horas, int minutos) {
+    double horasExtra = minutos / 60.0;
+    return horas + horasExtra;
+}
+
+
+
+public static void calculadoraDescuentos() throws NumberFormatException, IOException {
+
+    double precio = -1;
+    while (precio < 0) {
+        try {
+            precio = leerDouble("Introduce el precio del juego: ");
+            if (precio < 0) System.out.println("El precio no puede ser negativo.");
+        } catch (NumberFormatException e) {
+            System.out.println("Error. Introduce un número válido.");
+        }
+    }
+
+    int descuento = -1;
+    while (descuento < 0 || descuento > 100) {
+        try {
+            descuento = leerInt("Introduce el porcentaje de descuento (0-100): ");
+            if (descuento < 0 || descuento > 100) {
+                System.out.println("Debe estar entre 0 y 100.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error. Introduce un número válido.");
+        }
+    }
+
+    double precioFinal = aplicarDescuento(precio, descuento);
+
+    System.out.println("Precio original: " + precio + "€");
+    System.out.println("Precio final: " + precioFinal + "€");
+    System.out.println("Ahorro total: " + (precio - precioFinal) + "€");
+}
+	public static double aplicarDescuento(double precio, int descuento) {
+
+    double precioConDescuento = precio - (precio * descuento / 100.0);
+
+    if (precio > 15) {
+        return aplicarDescuento(precioConDescuento, 5);
+    }
+
+    return precioConDescuento;
+}
+
 
 }
+
